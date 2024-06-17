@@ -1,0 +1,148 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anticipating Market Fluctuation</title>
+
+
+    <!-- BootStrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+
+    <!-- css -->
+    <link rel="stylesheet" href="static/css/styles.css">
+	<style> body { background-image:url({{url_for('static',filename='StockImage.jpg')}})
+	} 
+	span {
+  background-color: #FFFF00;
+	
+}
+span2 {
+  background-color: #DAF7A6 ;
+	
+}</style>
+	
+
+</head>
+
+<body>
+    <!-- As a heading -->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/"><span>Anticipate Market Fluctuation</span></a>
+            </div>
+        </div>
+    </nav>
+
+    <br><br><br>
+
+
+    <div class="container">
+
+
+
+        <form action="\predict" method="post">
+
+
+
+            <div class="row" >
+                <div class="col-sm-6">
+                    <div class="card" style="background-color: #8885D0 ;">
+                        <div class="card-body">
+                            <!-- Stock Name -->
+                            <h5 class="card-title">Stock Name</h5>
+                            <select name="Source" id="Source" required="required">
+                                <option value="asianpaint">Asian Paint</option>
+                                <option value="axisbank">Axis Bank</option>
+                                <option value="bajajauto">Bajaj Auto</option>
+                                <option value="bhartiartl">Bharti airetl</option>
+				<option value="hcltech">HCL Tech</option>
+				<option value="cipla">cipla</option>
+				<option value="hindunilvr">Hindustan Uniliver</option>
+				<option value="icicibank">Icicibank</option>
+				<option value="infy">Infosys</option>
+				<option value="itc">ITC</option>
+                            </select>
+                       
+                        </div>
+                    </div>
+                </div>
+		<div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-body" style="background-color: #8885D0 ;">
+                            <h5 class="card-title">model Type</h5>
+                            <!-- type -->
+                            <select name="Destination" id="Destination" required="required">
+                                <option value="LSTM">LSTM</option>
+                                <option value="GRU">GRU</option>
+                                <option value="CNN">CNN</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+            <br>
+            <br>
+            <br>
+            <!-- Submit -->
+            <input type="submit" value="Submit" class="btn btn-secondary">
+        </form>
+
+        <br>
+        <br>
+        <h3><span>{{ prediction_text }}</span></h3>
+	<br>
+	<h4><span2>{{ x }}</span2></h4> <br>
+	<p><span2>{{ P_score }}</span2></p><br>
+	<p><span2>{{ P_score2 }}</span2></p><br>
+	<p><span2>{{ P_score3 }}</span2></p><br>
+	<p><span2>{{ P_score4 }}</span2></p><br>
+        <br>
+        <br><div class="site-header-logo">
+        <h1 class="text-center">
+            <span>Plots for Anticipating the Market Stocks</span>
+        </h1>
+    </div>
+
+    <div class="row p-4">
+        <div class="card m-auto" style="width: 90%;" data-aos="fade-left">
+            <div class="card-body">
+                <div id="chart1"></div>
+                <p class="card-text">This a Plot Comparing the stock close value of previous 45 day's to next 30 days OHLC Average which is anticipated by the system</p>
+            </div>
+            </div>
+		<div class="card mb-4 m-auto" style="width: 90%;" data-aos="fade-left">
+            <div class="card-body">
+                <div id="chart2"></div>
+                <p class="card-text"> This the overall plot with entire data and predicted value for next month to provide rought idea about the market</p>
+            </div>
+        </div>
+        </div>
+		
+    </div>
+    <!-- plotly CDN -->
+
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script type="text/javascript">
+        var graphs1 = {{ graph1JSON | safe}};
+        Plotly.plot("chart1", graphs1,{});
+
+	var graphs2 = {{ graph2JSON | safe}};
+        Plotly.plot("chart2", graphs2,{});
+
+    </script>
+        <p>©Dheerendra Singh <br> 2000320130057</p>
+
+    </div>
+
+</body>
+
+</html>
+
